@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Products - Pancake Delights</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #ffffff 0%, #ffe5b4 100%);
+    }
+    header {
+      background-color: #f4a261;
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+    }
+    nav {
+      background-color: #d17f58;
+      padding: 15px;
+      text-align: center;
+    }
+    nav a {
+      color: white;
+      margin: 0 12px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 30px;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .product {
+      background-color: white;
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .product img {
+      width: 100%;
+      border-radius: 10px;
+      height: 180px;
+      object-fit: cover;
+      margin-bottom: 10px;
+    }
+    .product h3 {
+      color: #d17f58;
+      margin: 10px 0 5px;
+    }
+    .product p {
+      margin: 5px 0;
+      color: #333;
+    }
+    .product button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: #f4a261;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .product button:hover {
+      background-color: #e07b39;
+    }
+    footer {
+      background-color: #e49b6d;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Our Pancake Flavors</h1>
+  <p>Discover your favorite pancake delight</p>
+</header>
+
+<nav>
+  <a href="index.html">Home</a>
+  <a href="about.html">About Us</a>
+  <a href="mission.html">Mission & Vision</a>
+  <a href="products.html">Products</a>
+  <a href="testimonials.html">Testimonials</a>
+  <a href="contact.html">Contact</a>
+  <a href="blog.html">Blog</a>
+  <a href="faqs.html">FAQs</a>
+  <a href="designer.html">Designer</a>
+  <a href="cart.html">🛒 Cart</a>
+</nav>
+
+<section class="products">
+  <div class="product">
+    <img src="but.jpg" alt="Classic Butter">
+    <h3>Classic Butter</h3>
+    <p>₱99.00</p>
+    <button onclick="addToCart('Classic Butter', 99)">Add to Cart</button>
+  </div>
+
+  <div class="product">
+    <img src="choc.jpg" alt="Choco Lava">
+    <h3>Choco Lava</h3>
+    <p>₱129.00</p>
+    <button onclick="addToCart('Choco Lava', 129)">Add to Cart</button>
+  </div>
+
+  <div class="product">
+    <img src="ban.jpg" alt="Banana Caramel Crunch">
+    <h3>Banana Caramel Crunch</h3>
+    <p>₱119.00</p>
+    <button onclick="addToCart('Banana Caramel Crunch', 119)">Add to Cart</button>
+  </div>
+
+  <div class="product">
+    <img src="match.jpg" alt="Matcha Green Dream">
+    <h3>Matcha Green Dream</h3>
+    <p>₱139.00</p>
+    <button onclick="addToCart('Matcha Green Dream', 139)">Add to Cart</button>
+  </div>
+
+  <div class="product">
+    <img src="blueberyy.jpg" alt="Blueberry Bliss">
+    <h3>Blueberry Bliss</h3>
+    <p>₱125.00</p>
+    <button onclick="addToCart('Blueberry Bliss', 125)">Add to Cart</button>
+  </div>
+
+  <div class="product">
+    <img src="ube.jpg" alt="Ube Macapuno Magic">
+    <h3>Ube Macapuno Magic</h3>
+    <p>₱135.00</p>
+    <button onclick="addToCart('Ube Macapuno Magic', 135)">Add to Cart</button>
+  </div>
+
+  <div class="product">
+    <img src="mango.jpg" alt="Tropical Mango Tango">
+    <h3>Tropical Mango Tango</h3>
+    <p>₱122.00</p>
+    <button onclick="addToCart('Tropical Mango Tango', 122)">Add to Cart</button>
+  </div>
+
+  <div class="product">
+    <img src="c&k.jpg" alt="Cookies & Cream Stack">
+    <h3>Cookies & Cream Stack</h3>
+    <p>₱118.00</p>
+    <button onclick="addToCart('Cookies & Cream Stack', 118)">Add to Cart</button>
+  </div>
+
+  <div class="product">
+    <img src="straw.jpg" alt="Strawberry Cheesecake">
+    <h3>Strawberry Cheesecake</h3>
+    <p>₱132.00</p>
+    <button onclick="addToCart('Strawberry Cheesecake', 132)">Add to Cart</button>
+  </div>
+
+  <div class="product">
+    <img src="nut.jpg" alt="Nutella Hazelnut Swirl">
+    <h3>Nutella Hazelnut Swirl</h3>
+    <p>₱145.00</p>
+    <button onclick="addToCart('Nutella Hazelnut Swirl', 145)">Add to Cart</button>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2025 Pancake Delights. All rights reserved.</p>
+</footer>
+
+<script>
+function addToCart(name, price) {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const existing = cart.find(item => item.name === name);
+  if (existing) {
+    existing.qty++;
+  } else {
+    cart.push({ name, price, qty: 1 });
+  }
+  localStorage.setItem("cart", JSON.stringify(cart));
+  alert(name + " added to cart!");
+}
+</script>
+
+</body>
+</html>

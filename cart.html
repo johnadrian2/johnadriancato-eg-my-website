@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shopping Cart - Pancake Delights</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #ffffff 0%, #ffe5b4 100%);
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #f4a261;
+      color: white;
+      text-align: center;
+      padding: 40px 20px;
+    }
+    nav {
+      background-color: #d17f58;
+      padding: 15px;
+      text-align: center;
+    }
+    nav a {
+      color: white;
+      margin: 0 12px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    main {
+      max-width: 800px;
+      margin: 30px auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+      text-align: center;
+      color: #d17f58;
+    }
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #ccc;
+      padding: 10px 0;
+    }
+    .cart-item span {
+      flex: 1;
+      text-align: center;
+    }
+    .cart-total {
+      text-align: right;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+    button {
+      background-color: #f4a261;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      margin: 10px 5px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #e07b39;
+    }
+    form {
+      margin-top: 30px;
+      border-top: 1px solid #ccc;
+      padding-top: 20px;
+    }
+    form label {
+      display: block;
+      margin: 10px 0 5px;
+      font-weight: bold;
+    }
+    form input, form textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    form button[type="submit"] {
+      display: block;
+      width: 100%;
+      background-color: #d17f58;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Your Cart</h1>
+    <p>Review your selected pancake delights</p>
+  </header>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="products.html">Products</a>
+    <a href="cart.html">Cart</a>
+  </nav>
+
+  <main>
+    <div id="cart-container"></div>
+    <div class="cart-total" id="total"></div>
+
+    <form id="checkout-form" onsubmit="submitCheckout(event)">
+      <h2>Checkout Information</h2>
+      <label for="name">Full Name</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="phone">Phone Number</label>
+      <input type="tel" id="phone" name="phone" required>
+
+      <label for="address">Delivery Address</label>
+      <textarea id="address" name="address" rows="4" required></textarea>
+
+      <button type="submit">Submit Order</button>
+    </form>
+
+    <div style="text-align: center;">
+      <button onclick="clearCart()">Clear Cart</button>
+    </div>
+  </main>
+
+  <footer style="background-color:#e49b6d; color:white; text-align:center; padding:20px;">
+    <p></p>
+  </footer>
+
+  <script>
+    const container = document.getElementById("cart-container");
+    const totalDisplay = document.getElementById("total");
+
+    function loadCart() {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      container.innerHTML = "";
+      let total = 0;
+
+      if (cart.length === 0) {
+        container.innerHTML = "<p>Your cart is empty.</p>";
+        totalDisplay.textContent = "";
+        document.getElementById("checkout-form").style.display = "none";
+        return;
+      } else {
+        document.getElementById("checkout-form").style.display = "block";
+      }
+
+      cart.forEach((item, index) => {
+        const subtotal = item.price * item.qty;
+        total += subtotal;
+        const div = document.createElement("div");
+        div.className = "cart-item";
+        div.innerHTML = `
+          <span>${item.name}</span>
+          <span>₱${item.price.toFixed(2)}</span>
+          <span>Qty: ${item.qty}</span>
+          <span>₱${subtotal.toFixed(2)}</span>
+          <button onclick="removeItem(${index})">Remove</button>
+        `;
+        container.appendChild(div);
+      });
+
+      totalDisplay.textContent = `Total: ₱${total.toFixed(2)}`;
+    }
+
+    function removeItem(index) {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.splice(index, 1);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      loadCart();
+    }
+
+    function clearCart() {
+      localStorage.removeItem("cart");
+      loadCart();
+    }
+
+    function submitCheckout(event) {
+      event.preventDefault();
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const phone = document.getElementById("phone").value;
+      const address = document.getElementById("address").value;
+
+      alert(`Thank you, ${name}! Your order is being processed.\n\nDelivery to: ${address}`);
+      clearCart();
+      document.getElementById("checkout-form").reset();
+    }
+
+    loadCart();
+  </script>
+</body>
+</html>
